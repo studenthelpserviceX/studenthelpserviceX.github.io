@@ -1,813 +1,640 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#030712">
-<title>Student Help Services | Ultra Premium</title>
 
-<!-- Ultra Quality Fonts: Syne for Headings, Outfit for Body -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>Student Help Services</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ==========================================================================
-   ULTRA-PREMIUM CSS ARCHITECTURE
-   ========================================================================== */
-
-/* --- 01. CSS Variables & Theming --- */
-:root {
-    /* Core Backgrounds */
-    --base-bg: #030712;
-    --surface-1: #111827;
-    --surface-2: #1f2937;
-    --surface-glass: rgba(17, 24, 39, 0.65);
-    
-    /* Brand Colors - Corrected to Vibrant Cyber/Neon Accents */
-    --brand-primary: #3b82f6;
-    --brand-secondary: #8b5cf6;
-    --brand-accent: #06b6d4;
-    
-    /* Text Colors */
-    --text-main: #ffffff;
-    --text-muted: #9ca3af;
-    --text-dark: #000000;
-    
-    /* Gradients */
-    --gradient-glow: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary), var(--brand-accent));
-    --gradient-text: linear-gradient(to right, #ffffff, #9ca3af);
-    
-    /* Shadows & Glows */
-    --glow-primary: 0 0 40px rgba(59, 130, 246, 0.4);
-    --glow-secondary: 0 0 40px rgba(139, 92, 246, 0.4);
-    --shadow-elegant: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-    
-    /* Measurements */
-    --radius-sm: 12px;
-    --radius-md: 24px;
-    --radius-lg: 32px;
-    --radius-full: 9999px;
-    
-    /* Transitions */
-    --easing-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-fast: 0.2s var(--easing-smooth);
-    --transition-slow: 0.6s var(--easing-smooth);
-}
-
-/* --- 02. Reset & Typography --- */
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-    background-color: var(--base-bg);
-}
-
-body {
-    font-family: 'Outfit', sans-serif;
-    background-color: var(--base-bg);
-    color: var(--text-main);
-    line-height: 1.6;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-h1, h2, h3, h4, h5, h6, .brand-text {
-    font-family: 'Syne', sans-serif;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-    outline: none;
-}
-
-ul {
-    list-style: none;
-}
-
-/* --- 03. Global Utility Classes --- */
-.container {
-    width: 90%;
-    max-width: 1400px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 10;
-}
-
-.text-gradient {
-    background: var(--gradient-text);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.brand-gradient {
-    background: var(--gradient-glow);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-/* --- 04. Background Effects (Canvas & Orbs) --- */
-#particle-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.6;
-}
-
-.ambient-orb {
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(120px);
-    z-index: 1;
-    opacity: 0.4;
-    pointer-events: none;
-    animation: drift 20s infinite alternate ease-in-out;
-}
-
-.orb-top-left {
-    width: 50vw;
-    height: 50vw;
-    background: var(--brand-primary);
-    top: -20vw;
-    left: -20vw;
-}
-
-.orb-bottom-right {
-    width: 60vw;
-    height: 60vw;
-    background: var(--brand-secondary);
-    bottom: -30vw;
-    right: -20vw;
-    animation-delay: -5s;
-}
-
-@keyframes drift {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(5%, 5%) scale(1.1); }
-    100% { transform: translate(-5%, -5%) scale(0.9); }
-}
-
-/* --- 05. Ultra-Premium Header & Hamburger Menu --- */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 25px 0;
-    z-index: 999;
-    transition: var(--transition-slow);
-}
-
-header.scrolled {
-    padding: 15px 0;
-    background: rgba(3, 7, 18, 0.8);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.nav-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    position: relative;
-    z-index: 1001;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo-icon {
-    width: 35px;
-    height: 35px;
-    background: var(--gradient-glow);
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: var(--glow-primary);
-}
-
-.logo-icon svg {
-    width: 20px;
-    height: 20px;
-    fill: white;
-}
-
-/* Hamburger Icon (Three Lines) */
-.menu-toggle {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    cursor: pointer;
-    z-index: 1001;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: var(--transition-fast);
-    backdrop-filter: blur(10px);
-}
-
-.menu-toggle:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.05);
-}
-
-.hamburger {
-    width: 24px;
-    height: 20px;
-    position: relative;
-}
-
-.hamburger span {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--text-main);
-    border-radius: 2px;
-    transition: 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.hamburger span:nth-child(1) { top: 0; }
-.hamburger span:nth-child(2) { top: 9px; }
-.hamburger span:nth-child(3) { top: 18px; }
-
-/* Hamburger Active State (Turns to X) */
-.menu-toggle.active .hamburger span:nth-child(1) {
-    top: 9px;
-    transform: rotate(45deg);
-}
-.menu-toggle.active .hamburger span:nth-child(2) {
-    opacity: 0;
-    transform: scale(0);
-}
-.menu-toggle.active .hamburger span:nth-child(3) {
-    top: 9px;
-    transform: rotate(-45deg);
-}
-
-/* --- 06. Full-Screen Overlay Menu (The 5 Links) --- */
-.fullscreen-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(3, 7, 18, 0.95);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.fullscreen-menu.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.menu-links {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    text-align: center;
-    width: 100%;
-    max-width: 600px;
-}
-
-.menu-item {
-    transform: translateY(50px);
-    opacity: 0;
-    transition: 0.5s var(--easing-spring);
-}
-
-.fullscreen-menu.active .menu-item {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-/* Staggered Delay for exactly 5 links */
-.fullscreen-menu.active .menu-item:nth-child(1) { transition-delay: 0.1s; }
-.fullscreen-menu.active .menu-item:nth-child(2) { transition-delay: 0.2s; }
-.fullscreen-menu.active .menu-item:nth-child(3) { transition-delay: 0.3s; }
-.fullscreen-menu.active .menu-item:nth-child(4) { transition-delay: 0.4s; }
-.fullscreen-menu.active .menu-item:nth-child(5) { transition-delay: 0.5s; }
-
-.menu-link-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    padding: 25px 40px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: var(--radius-lg);
-    font-size: 24px;
-    font-weight: 600;
-    font-family: 'Syne', sans-serif;
-    color: var(--text-main);
-    transition: var(--transition-slow);
-    position: relative;
-    overflow: hidden;
-}
-
-.menu-link-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: var(--gradient-glow);
-    opacity: 0;
-    z-index: -1;
-    transition: var(--transition-slow);
-}
-
-.menu-link-card:hover {
-    transform: scale(1.02);
-    border-color: transparent;
-    box-shadow: var(--shadow-elegant);
-}
-
-.menu-link-card:hover::before {
-    opacity: 0.15;
-}
-
-.menu-icon {
-    font-size: 30px;
-}
-
-.instagram-icon { color: #E1306C; }
-.telegram-icon { color: #0088cc; }
-.whatsapp-icon { color: #25D366; }
-
-/* --- 07. Hero Section --- */
-.hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 10;
-    padding-top: 100px;
-    text-align: center;
-}
-
-.hero-content {
-    max-width: 900px;
-    position: relative;
-}
-
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-full);
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 30px;
-    backdrop-filter: blur(10px);
-}
-
-.pulse-dot {
-    width: 8px;
-    height: 8px;
-    background: #10b981;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #10b981;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-}
-
-.hero h1 {
-    font-size: clamp(40px, 8vw, 90px);
-    line-height: 1.1;
-    letter-spacing: -2px;
-    margin-bottom: 30px;
-    font-weight: 800;
-}
-
-.hero p {
-    font-size: clamp(16px, 2vw, 22px);
-    color: var(--text-muted);
-    max-width: 700px;
-    margin: 0 auto 50px;
-    font-weight: 300;
-}
-
-.hero-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.btn-ultra {
-    position: relative;
-    padding: 18px 40px;
-    border-radius: var(--radius-full);
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Syne', sans-serif;
-    color: var(--text-main);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    overflow: hidden;
-    cursor: pointer;
-    transition: var(--transition-slow);
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    backdrop-filter: blur(10px);
-}
-
-.btn-ultra::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: var(--gradient-glow);
-    opacity: 0;
-    transition: var(--transition-slow);
-    z-index: -1;
-}
-
-.btn-ultra:hover {
-    transform: translateY(-5px);
-    border-color: transparent;
-    box-shadow: var(--glow-primary);
-}
-
-.btn-ultra:hover::before {
-    opacity: 1;
-}
-
-.btn-solid {
-    background: var(--text-main);
-    color: var(--text-dark);
-    border: none;
-}
-
-.btn-solid::before {
-    background: var(--text-muted);
-}
-
-/* --- 08. Services Interactive Grid (Mouse Tracking Glow) --- */
-.services-section {
-    padding: 120px 0;
-    position: relative;
-    z-index: 10;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 80px;
-}
-
-.section-header h2 {
-    font-size: clamp(32px, 5vw, 56px);
-    font-weight: 800;
-    margin-bottom: 20px;
-}
-
-.cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-/* The Magic Mouse Tracking Card */
-.magic-card {
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: var(--radius-md);
-    padding: 2px; /* Border thickness */
-    position: relative;
-    overflow: hidden;
-    cursor: pointer;
-}
-
-.magic-card::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(
-        800px circle at var(--mouse-x) var(--mouse-y), 
-        rgba(255, 255, 255, 0.15),
-        transparent 40%
-    );
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.magic-card:hover::before {
-    opacity: 1;
-}
-
-.magic-card-content {
-    background: var(--surface-1);
-    border-radius: calc(var(--radius-md) - 2px);
-    padding: 40px 30px;
-    height: 100%;
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    transition: var(--transition-slow);
-}
-
-.magic-card:hover .magic-card-content {
-    background: rgba(17, 24, 39, 0.9);
-}
-
-.card-icon-wrapper {
-    width: 60px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: var(--radius-sm);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: var(--transition-slow);
-}
-
-.magic-card:hover .card-icon-wrapper {
-    background: var(--gradient-glow);
-    border-color: transparent;
-    transform: scale(1.1) rotate(5deg);
-}
-
-.magic-card h3 {
-    font-size: 24px;
-    font-weight: 700;
-}
-
-.magic-card p {
-    color: var(--text-muted);
-    font-size: 16px;
-    line-height: 1.7;
-}
-
-/* --- 09. Floating Contact Widgets --- */
-.floating-widget-container {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    z-index: 990;
-}
-
-.floating-btn {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 28px;
-    color: white;
-    box-shadow: var(--shadow-elegant);
-    position: relative;
-    cursor: pointer;
-    transition: var(--transition-slow);
-    overflow: hidden;
-}
-
-.floating-btn::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: inherit;
-    filter: brightness(1.2);
-    opacity: 0;
-    transition: var(--transition-fast);
-}
-
-.floating-btn:hover {
-    transform: translateY(-8px) scale(1.05);
-}
-
-.floating-btn:hover::before {
-    opacity: 1;
-}
-
-.floating-btn i {
-    position: relative;
-    z-index: 2;
-}
-
-.fab-tg { background: #0088cc; box-shadow: 0 10px 30px rgba(0, 136, 204, 0.4); }
-.fab-wa { background: #25D366; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); }
-
-/* --- 10. Minimalist Premium Footer --- */
-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 80px 0 40px;
-    position: relative;
-    z-index: 10;
-    background: var(--base-bg);
-}
-
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 30px;
-}
-
-.footer-logo {
-    font-family: 'Syne', sans-serif;
-    font-size: 32px;
-    font-weight: 800;
-}
-
-.footer-text {
-    color: var(--text-muted);
-    max-width: 500px;
-}
-
-.developer-tag {
-    margin-top: 40px;
-    padding: 15px 30px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: var(--radius-full);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.developer-tag span {
-    color: var(--brand-accent);
-    font-weight: 700;
-}
-
-/* Responsive Rules */
-@media (max-width: 768px) {
-    .orb-top-left { width: 80vw; height: 80vw; }
-    .orb-bottom-right { width: 90vw; height: 90vw; }
-    .menu-link-card { padding: 20px; font-size: 18px; }
-    .floating-widget-container { bottom: 20px; right: 20px; }
-    .floating-btn { width: 55px; height: 55px; font-size: 24px; }
+
+:root{
+--bg:#f5f7ff;
+--card:#ffffff;
+--text:#111827;
+--primary:#4f46e5;
+--secondary:#06b6d4;
+--shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.dark{
+--bg:#0f172a;
+--card:#1e293b;
+--text:#f8fafc;
+--primary:#6366f1;
+--secondary:#22d3ee;
+--shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+transition:.4s;
+overflow-x:hidden;
+}
+
+a{
+text-decoration:none;
+color:inherit;
+}
+
+img{
+max-width:100%;
+}
+
+.container{
+width:92%;
+max-width:1200px;
+margin:auto;
+}
+
+/* Navbar */
+
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+z-index:999;
+background:rgba(255,255,255,.85);
+backdrop-filter:blur(15px);
+box-shadow:0 2px 20px rgba(0,0,0,.08);
+}
+
+.dark header{
+background:rgba(15,23,42,.9);
+}
+
+.navbar{
+height:70px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.logo{
+font-size:22px;
+font-weight:800;
+color:var(--primary);
+}
+
+.menu-btn{
+font-size:28px;
+cursor:pointer;
+}
+
+.dark-toggle{
+width:45px;
+height:45px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+background:var(--card);
+box-shadow:var(--shadow);
+}
+
+/* Sidebar */
+
+.sidebar{
+position:fixed;
+top:0;
+left:-320px;
+width:280px;
+height:100vh;
+background:var(--card);
+padding:25px;
+transition:.4s;
+z-index:2000;
+box-shadow:var(--shadow);
+}
+
+.sidebar.active{
+left:0;
+}
+
+.sidebar h2{
+margin-bottom:25px;
+color:var(--primary);
+}
+
+.sidebar a{
+display:block;
+padding:14px;
+border-radius:12px;
+margin-bottom:10px;
+font-weight:600;
+background:rgba(79,70,229,.08);
+}
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.4);
+display:none;
+z-index:1500;
+}
+
+.overlay.active{
+display:block;
+}
+
+/* Hero */
+
+.hero{
+padding-top:120px;
+padding-bottom:80px;
+}
+
+.hero-box{
+background:linear-gradient(135deg,#4f46e5,#06b6d4);
+border-radius:30px;
+padding:45px 25px;
+text-align:center;
+color:white;
+box-shadow:0 20px 40px rgba(79,70,229,.3);
+animation:float 4s ease-in-out infinite;
+}
+
+.hero h1{
+font-size:36px;
+font-weight:800;
+line-height:1.2;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:15px;
+line-height:1.8;
+max-width:700px;
+margin:auto;
+}
+
+.btn{
+display:inline-block;
+margin-top:25px;
+padding:14px 28px;
+border-radius:50px;
+background:white;
+color:#4f46e5;
+font-weight:700;
+transition:.3s;
+}
+
+.btn:hover{
+transform:translateY(-4px);
+}
+
+/* Sections */
+
+.section{
+padding:80px 0;
+}
+
+.section-title{
+font-size:32px;
+font-weight:800;
+text-align:center;
+margin-bottom:45px;
+color:var(--primary);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:var(--card);
+padding:25px;
+border-radius:24px;
+box-shadow:var(--shadow);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+.card h3{
+margin-bottom:12px;
+color:var(--primary);
+}
+
+/* Contact Buttons */
+
+.contact-buttons{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+justify-content:center;
+margin-top:30px;
+}
+
+.whatsapp{
+background:#25D366;
+color:white;
+padding:15px 25px;
+border-radius:50px;
+font-weight:700;
+}
+
+.telegram{
+background:#0088cc;
+color:white;
+padding:15px 25px;
+border-radius:50px;
+font-weight:700;
+}
+
+@keyframes float{
+50%{
+transform:translateY(-10px);
+}
 }
 
 </style>
 </head>
 <body>
+<!-- Sidebar -->
 
-<!-- Ambient Background Layer -->
-<canvas id="particle-canvas"></canvas>
-<div class="ambient-orb orb-top-left"></div>
-<div class="ambient-orb orb-bottom-right"></div>
+<div class="overlay" id="overlay"></div>
 
-<!-- HEADER NAVIGATION -->
-<header id="main-header">
-    <div class="container nav-wrapper">
-        <!-- Brand Logo -->
-        <a href="#" class="logo">
-            <div class="logo-icon">
-                <!-- Custom SVG Star Icon -->
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" />
-                </svg>
-            </div>
-            <span class="brand-text">StudentHelp.</span>
-        </a>
+<div class="sidebar" id="sidebar">
 
-        <!-- Interactive Hamburger Menu (3 Lines) -->
-        <div class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </div>
+<h2>📱 Quick Links</h2>
+
+<a href="https://wa.me/916393859364" target="_blank">
+💬 WhatsApp Contact
+</a>
+
+<a href="https://t.me/Alok12244" target="_blank">
+📨 Telegram Contact
+</a>
+
+<a href="https://whatsapp.com/channel/0029VbCiLnC2f3EM06L4Lu45" target="_blank">
+📢 WhatsApp Channel
+</a>
+
+<a href="https://t.me/+h5uD1cqoh1wzNThl" target="_blank">
+🚀 Telegram Channel
+</a>
+
+<a href="https://www.instagram.com/student_help_service.00" target="_blank">
+📸 Instagram
+</a>
+
+</div>
+
+<!-- Header -->
+
+<header>
+
+<div class="container navbar">
+
+<div class="menu-btn" onclick="openMenu()">
+☰
+</div>
+
+<div class="logo">
+Student Help
+</div>
+
+<div class="dark-toggle" onclick="toggleDark()">
+🌙
+</div>
+
+</div>
+
 </header>
 
-<!-- FULLSCREEN BLUR OVERLAY MENU (The 5 Links) -->
-<nav class="fullscreen-menu" id="fullscreen-menu">
-    <ul class="menu-links">
-        
-        <!-- Link 1: Telegram Channel -->
-        <li class="menu-item">
-            <a href="https://t.me/+h5uD1cqoh1wzNThl" target="_blank" class="menu-link-card">
-                <span class="menu-icon telegram-icon">🚀</span>
-                Join Telegram Channel
-            </a>
-        </li>
-        
-        <!-- Link 2: Instagram -->
-        <li class="menu-item">
-            <a href="https://www.instagram.com/student_help_service.00" target="_blank" class="menu-link-card">
-                <span class="menu-icon instagram-icon">📸</span>
-                Follow on Instagram
-            </a>
-        </li>
-        
-        <!-- Link 3: WhatsApp Channel -->
-        <li class="menu-item">
-            <a href="https://whatsapp.com/channel/0029VbCiLnC2f3EM06L4Lu45" target="_blank" class="menu-link-card">
-                <span class="menu-icon whatsapp-icon">📢</span>
-                WhatsApp Channel
-            </a>
-        </li>
-        
-        <!-- Link 4: Telegram Contact -->
-        <li class="menu-item">
-            <a href="https://t.me/Student_help_service_00" target="_blank" class="menu-link-card">
-                <span class="menu-icon telegram-icon">📨</span>
-                Telegram Contact Support
-            </a>
-        </li>
-        
-        <!-- Link 5: WhatsApp Contact -->
-        <li class="menu-item">
-            <a href="https://wa.me/916393859364" target="_blank" class="menu-link-card">
-                <span class="menu-icon whatsapp-icon">💬</span>
-                WhatsApp Direct Message
-            </a>
-        </li>
+<!-- Hero Section -->
 
-    </ul>
-</nav>
+<section class="hero">
 
-<!-- HERO SECTION -->
-<main>
-    <section class="hero">
-        <div class="container hero-content">
-            <div class="hero-badge">
-                <div class="pulse-dot"></div>
-                Premium Digital Assistance Platform
-            </div>
-            
-            <h1>Experience the next generation of <span class="brand-gradient">Student Services.</span></h1>
-            
-            <p>From Scholarship Forms to Aadhaar Updates, Government Jobs, and PAN Services. We redefine digital convenience with speed, accuracy, and absolute trust.</p>
-            
-            <div class="hero-buttons">
-                <a href="#services" class="btn-ultra btn-solid">
-                    Explore Services
-                </a>
-                <a href="https://wa.me/916393859364" target="_blank" class="btn-ultra">
-                    Contact Agent 
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </section>
+<div class="container">
 
-    <!-- SERVICES GRID (Apple-like Mouse Tracking Cards) -->
-    <section id="services" class="services-section container">
-        <div class="section-header">
-            <h2>Our Core <span class="brand-gradient">Expertise</span></h2>
-            <p class="text-muted">High-end digital solutions processed with zero errors.</p>
-        </div>
+<div class="hero-box">
 
-        <div class="cards-grid" id="cards-grid">
-            
-            <!-- Card 1 -->
-            <a href="scholarship.html" class="magic-card">
-                <div class="magic-card-content">
-                    <div class
+<h1>
+Student Help Services
+</h1>
+
+<p>
+Scholarship Forms, Government Job Forms, Aadhaar Services,
+PAN Services, Resume Making, PDF Services, Ticket Booking,
+Document Typing and many more digital services.
+</p>
+
+<a href="https://t.me/+h5uD1cqoh1wzNThl" class="btn" target="_blank">
+Join Telegram Channel
+</a>
+
+<div class="contact-buttons">
+
+<a class="whatsapp"
+href="https://wa.me/916393859364"
+target="_blank">
+WhatsApp Contact
+</a>
+
+<a class="telegram"
+href="https://t.me/Student_help_service_00"
+target="_blank">
+Telegram Contact
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Services -->
+
+<section class="section">
+
+<div class="container">
+
+<h2 class="section-title">
+Our Services
+</h2>
+
+<div class="grid">
+
+<a href="scholarship.html" style="text-decoration:none;color:inherit;">
+
+<div class="card">
+<h3>🎓 Scholarship Forms</h3>
+<p>Click here to check eligibility, documents and apply online.</p>
+</div>
+
+</a>
+  
+<a href="exam.html" style="text-decoration:none;color:inherit;">
+
+<div class="card">
+<h3>📝 Exam Forms</h3>
+<p>Click here to check JEE, NEET, CUET, SSC, Banking, Railway and other exam forms.</p>
+</div>
+
+</a>
+<a href="government-jobs.html" style="text-decoration:none;color:inherit;">
+
+<div class="card">
+<h3>🏆 Government Jobs</h3>
+<p>Click here to check SSC, UPSC, NDA, CDS, Railway, Banking and other government vacancies.</p>
+</div>
+
+</a>
+  
+<a href="aadhaar.html" style="text-decoration:none;color:inherit;">
+
+<div class="card">
+<h3>🪪 Aadhaar Services</h3>
+<p>Click here for Aadhaar update, correction, mobile linking and other Aadhaar related services.</p>
+</div>
+
+</a>
+
+<a href="pan.html" style="text-decoration:none;color:inherit;">
+
+<div class="card">
+<h3>💳 PAN Services</h3>
+<p>Click here for new PAN application, corrections, reprint and PAN related assistance.</p>
+</div>
+
+<a href="ayushman.html" style="text-decoration:none;color:inherit;">
+
+<div class="card">
+<h3>🏥 Ayushman Card Services</h3>
+<p>Click here to check eligibility, required documents, benefits and Ayushman Card related assistance.</p>
+</div>
+
+</a>
+
+<a href="lic-insurance.html" style="text-decoration:none;color:inherit;">
+
+<div class="card">
+<h3>🛡️ LIC & Insurance Services</h3>
+<p>Click here for LIC, health insurance, life insurance and policy related assistance.</p>
+</div>
+
+</a>
+  
+<a href="books-pyqs.html" style="text-decoration:none;color:inherit;">
+<div class="card">
+<h3>📚 Books & PYQs</h3>
+<p>Study materials and previous papers.</p>
+</div>
+</a>
+
+
+</div>
+
+</section>
+
+<!-- About -->
+
+<section class="section">
+
+<div class="container">
+
+<h2 class="section-title">
+About Us
+</h2>
+
+<div class="card">
+
+<p style="line-height:2">
+
+Student Help Services provides trusted online assistance
+for students and citizens across India.
+
+We help with scholarships, government forms,
+digital services, document preparation,
+exam registrations and many more online services.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+<!-- Stats Section -->
+
+<section class="section">
+
+<div class="container">
+
+<h2 class="section-title">
+Why Choose Us
+</h2>
+
+<div class="grid">
+
+<div class="card">
+<h2>100%</h2>
+<p>Online Support</p>
+</div>
+
+<div class="card">
+<h2>24×7</h2>
+<p>Telegram Assistance</p>
+</div>
+
+<div class="card">
+<h2>50+</h2>
+<p>Digital Services</p>
+</div>
+
+<div class="card">
+<h2>Fast</h2>
+<p>Service Delivery</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Contact Section -->
+
+<section class="section">
+
+<div class="container">
+
+<h2 class="section-title">
+Contact Us
+</h2>
+
+<div class="card">
+
+<h3>📞 Mobile Number</h3>
+
+<p>
+6393859364
+</p>
+
+<br>
+
+<h3>💬 Telegram</h3>
+
+<p>
+@Student_help_service_00
+</p>
+
+<br>
+
+<a href="https://wa.me/916393859364"
+class="btn"
+target="_blank">
+
+Message Now
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Footer -->
+
+<footer>
+
+<div class="container">
+
+<h3>
+Student Help Services
+</h3>
+
+<p style="margin-top:15px">
+
+Scholarships • Government Forms • Digital Services •
+Aadhaar • PAN • Resume • PDF Work
+
+</p>
+
+<br>
+
+<p>
+© 2026 Student Help Services | All Rights Reserved
+</p>
+
+</div>
+
+  <p style="margin-top:10px;font-size:14px;color:#888;">
+💻 Website Developed By <b>Ritesh Shukla</b>
+  </p>
+</footer>
+
+<!-- Floating WhatsApp -->
+
+<a href="https://wa.me/916393859364"
+class="floating whatsapp-float"
+target="_blank">
+
+💬
+
+</a>
+
+<!-- Floating Telegram -->
+
+<a href="https://t.me/Student_help_service_00"
+class="floating telegram-float"
+target="_blank">
+
+📨
+
+</a>
+
+<script>
+
+function openMenu(){
+
+document.getElementById("sidebar").style.left="0";
+document.getElementById("overlay").style.display="block";
+
+}
+
+document.getElementById("overlay").onclick=function(){
+
+document.getElementById("sidebar").style.left="-300px";
+document.getElementById("overlay").style.display="none";
+
+}
+
+function toggleDark(){
+
+document.body.classList.toggle("dark");
+
+}
+
+</script>
+
+</body>
+</html>
