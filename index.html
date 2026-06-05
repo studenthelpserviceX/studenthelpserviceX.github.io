@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
@@ -8,17 +7,53 @@
 
 <title>Student Help Services</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
---bg:#0b1120;
---card:rgba(255,255,255,.08);
---text:#ffffff;
+
+--bg:#f8fafc;
+--bg-secondary:#ffffff;
+--text:#0f172a;
+--text-light:#475569;
+
 --primary:#6366f1;
 --secondary:#06b6d4;
---border:rgba(255,255,255,.12);
+--accent:#8b5cf6;
+
+--glass:rgba(255,255,255,.65);
+--border:rgba(255,255,255,.35);
+
+--shadow:
+0 10px 30px rgba(0,0,0,.08);
+
+--hero-gradient:
+linear-gradient(
+135deg,
+#6366f1,
+#8b5cf6,
+#06b6d4
+);
+
+}
+
+body.dark{
+
+--bg:#020617;
+--bg-secondary:#0f172a;
+--text:#ffffff;
+--text-light:#cbd5e1;
+
+--glass:rgba(15,23,42,.65);
+--border:rgba(255,255,255,.08);
+
+--shadow:
+0 15px 40px rgba(0,0,0,.45);
+
 }
 
 *{
@@ -33,94 +68,477 @@ scroll-behavior:smooth;
 }
 
 body{
-background:
-radial-gradient(circle at top left,#4f46e530,transparent 40%),
-radial-gradient(circle at bottom right,#06b6d430,transparent 40%),
-#0b1120;
-color:white;
+
+background:var(--bg);
+color:var(--text);
+
 overflow-x:hidden;
+
+transition:
+background .4s ease,
+color .4s ease;
+
 }
 
-a{
-text-decoration:none;
-color:inherit;
+/* Animated Background */
+
+body::before{
+
+content:"";
+
+position:fixed;
+inset:0;
+
+background:
+
+radial-gradient(
+circle at 15% 20%,
+rgba(99,102,241,.25),
+transparent 35%
+),
+
+radial-gradient(
+circle at 80% 15%,
+rgba(6,182,212,.20),
+transparent 35%
+),
+
+radial-gradient(
+circle at 75% 80%,
+rgba(139,92,246,.20),
+transparent 35%
+);
+
+z-index:-2;
+
+animation:
+floatGlow 12s ease-in-out infinite;
+
 }
+
+@keyframes floatGlow{
+
+0%{
+transform:translateY(0);
+}
+
+50%{
+transform:translateY(-20px);
+}
+
+100%{
+transform:translateY(0);
+}
+
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+
+background:
+linear-gradient(
+180deg,
+#6366f1,
+#06b6d4
+);
+
+border-radius:20px;
+
+}
+
+/* Container */
 
 .container{
+
 width:92%;
-max-width:1200px;
+max-width:1300px;
+
 margin:auto;
+
 }
 
+/* Navbar */
+
 header{
+
 position:fixed;
 top:0;
 left:0;
 width:100%;
-z-index:999;
-background:rgba(15,23,42,.85);
+
+z-index:1000;
+
 backdrop-filter:blur(20px);
-border-bottom:1px solid rgba(255,255,255,.08);
+
+background:rgba(255,255,255,.45);
+
+border-bottom:
+1px solid rgba(255,255,255,.25);
+
+}
+
+body.dark header{
+
+background:rgba(2,6,23,.6);
+
 }
 
 .navbar{
-height:75px;
+
+height:80px;
+
 display:flex;
 align-items:center;
 justify-content:space-between;
+
 }
 
 .logo{
-font-size:28px;
-font-weight:800;
-background:linear-gradient(90deg,#6366f1,#06b6d4);
+
+font-size:30px;
+font-weight:900;
+
+background:
+linear-gradient(
+90deg,
+#6366f1,
+#06b6d4
+);
+
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
+
 }
 
-.menu-btn{
-font-size:30px;
-cursor:pointer;
-}
+.nav-actions{
 
-.dark-toggle{
-width:45px;
-height:45px;
 display:flex;
 align-items:center;
-justify-content:center;
-border-radius:50%;
-background:rgba(255,255,255,.08);
+gap:15px;
+
+}
+
+.theme-btn,
+.menu-btn{
+
+width:50px;
+height:50px;
+
+border:none;
+outline:none;
+
 cursor:pointer;
+
+border-radius:50%;
+
+background:var(--glass);
+
+backdrop-filter:blur(20px);
+
+box-shadow:var(--shadow);
+
+font-size:22px;
+
+color:var(--text);
+
 }
 
-.sidebar{
-position:fixed;
-top:0;
-left:-320px;
-width:280px;
-height:100vh;
-padding:25px;
-background:#111827;
-transition:.4s;
-z-index:2000;
+/* Glass Card */
+
+.glass{
+
+background:var(--glass);
+
+border:1px solid var(--border);
+
+backdrop-filter:blur(25px);
+
+box-shadow:var(--shadow);
+
 }
 
-.sidebar.active{
-left:0;
+/* Hero */
+
+.hero{
+
+padding-top:140px;
+padding-bottom:90px;
+
 }
 
-.sidebar h2{
+.hero-box{
+
+border-radius:40px;
+
+padding:80px 35px;
+
+text-align:center;
+
+background:var(--hero-gradient);
+
+background-size:300% 300%;
+
+animation:
+heroGradient 8s ease infinite;
+
+color:white;
+
+box-shadow:
+0 20px 60px rgba(99,102,241,.35);
+
+}
+
+@keyframes heroGradient{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+.hero h1{
+
+font-size:clamp(
+40px,
+8vw,
+75px
+);
+
+font-weight:900;
+
+line-height:1.1;
+
+margin-bottom:18px;
+
+}
+
+.hero p{
+
+max-width:850px;
+
+margin:auto;
+
+font-size:18px;
+
+line-height:1.8;
+
+opacity:.95;
+
+}
+
+/* Buttons */
+
+.btn{
+
+display:inline-flex;
+
+align-items:center;
+justify-content:center;
+
+padding:16px 32px;
+
+border-radius:60px;
+
+font-weight:700;
+
+margin-top:25px;
+
+transition:.35s;
+
+cursor:pointer;
+
+}
+
+.btn-primary{
+
+background:white;
+color:#6366f1;
+
+}
+
+.btn-primary:hover{
+
+transform:
+translateY(-5px)
+scale(1.04);
+
+}
+
+/* Sections */
+
+.section{
+
+padding:100px 0;
+
+}
+
+.section-title{
+
+text-align:center;
+
+font-size:50px;
+
+font-weight:900;
+
 margin-bottom:20px;
-color:#06b6d4;
+
+background:
+linear-gradient(
+90deg,
+#6366f1,
+#06b6d4
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
 }
 
-.sidebar a{
-display:block;
-padding:14px;
-margin-bottom:10px;
-border-radius:12px;
-background:rgba(255,255,255,.05);
+.section-sub{
+
+text-align:center;
+
+max-width:700px;
+
+margin:auto;
+
+color:var(--text-light);
+
+line-height:1.8;
+
+margin-bottom:50px;
+
+}
+
+/* Grid */
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(280px,1fr));
+
+gap:25px;
+
+}
+
+.card{
+
+padding:28px;
+
+border-radius:28px;
+
+transition:.35s;
+
+}
+
+.card:hover{
+
+transform:
+translateY(-10px);
+
+}
+
+.card h3{
+
+font-size:22px;
+
+margin-bottom:12px;
+
+}
+
+.card p{
+
+color:var(--text-light);
+
+line-height:1.8;
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.hero-box{
+
+padding:60px 20px;
+
+}
+
+.section-title{
+
+font-size:38px;
+
+}
+
+}
+
+</style>
+
+</head>
+  <body class="dark">
+
+<!-- Background Glow Elements -->
+
+<div class="bg-glow glow1"></div>
+<div class="bg-glow glow2"></div>
+<div class="bg-glow glow3"></div>
+
+<style>
+
+.bg-glow{
+position:fixed;
+border-radius:50%;
+filter:blur(100px);
+z-index:-1;
+animation:float 12s infinite ease-in-out;
+}
+
+.glow1{
+width:300px;
+height:300px;
+background:#6366f1;
+top:-100px;
+left:-100px;
+opacity:.20;
+}
+
+.glow2{
+width:350px;
+height:350px;
+background:#06b6d4;
+right:-100px;
+top:20%;
+opacity:.15;
+}
+
+.glow3{
+width:250px;
+height:250px;
+background:#8b5cf6;
+bottom:-100px;
+left:30%;
+opacity:.18;
+}
+
+@keyframes float{
+50%{
+transform:translateY(-40px);
+}
 }
 
 .overlay{
@@ -131,108 +549,132 @@ width:100%;
 height:100%;
 background:rgba(0,0,0,.6);
 display:none;
-z-index:1500;
+z-index:998;
 }
 
-.hero{
-padding-top:120px;
-padding-bottom:80px;
+.sidebar{
+
+position:fixed;
+top:0;
+left:-320px;
+
+width:300px;
+height:100vh;
+
+padding:25px;
+
+background:var(--bg-secondary);
+
+backdrop-filter:blur(25px);
+
+border-right:1px solid rgba(255,255,255,.08);
+
+transition:.4s;
+
+z-index:999;
+
+overflow-y:auto;
+
 }
 
-.hero-box{
-padding:60px 30px;
-border-radius:35px;
-text-align:center;
-background:linear-gradient(
-135deg,
-#4f46e5,
-#06b6d4,
-#7c3aed
-);
-background-size:300% 300%;
-animation:gradientMove 8s ease infinite;
-box-shadow:0 25px 60px rgba(79,70,229,.35);
+.sidebar.active{
+left:0;
 }
 
-.hero h1{
-font-size:48px;
+.sidebar h2{
+
+margin-bottom:25px;
+
+font-size:28px;
+
 font-weight:800;
-margin-bottom:15px;
-}
 
-.hero p{
-font-size:17px;
-line-height:1.8;
-max-width:700px;
-margin:auto;
-}
-
-.btn{
-display:inline-block;
-margin-top:25px;
-padding:15px 30px;
-border-radius:50px;
-background:white;
-color:#4f46e5;
-font-weight:700;
-transition:.3s;
-}
-
-.btn:hover{
-transform:translateY(-5px);
-}
-
-@keyframes gradientMove{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
-
-.section{
-padding:80px 0;
-}
-
-.section-title{
-font-size:38px;
-font-weight:800;
-text-align:center;
-margin-bottom:50px;
-background:linear-gradient(
+background:
+linear-gradient(
 90deg,
 #6366f1,
 #06b6d4
 );
+
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
+
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
+.sidebar a{
+
+display:block;
+
+padding:15px;
+
+margin-bottom:12px;
+
+border-radius:15px;
+
+background:rgba(255,255,255,.05);
+
+transition:.3s;
+
 }
 
-.card{
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(20px);
-border:1px solid rgba(255,255,255,.08);
-padding:25px;
+.sidebar a:hover{
+
+transform:translateX(6px);
+
+background:rgba(99,102,241,.18);
+
+}
+
+.hero-buttons{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+margin-top:30px;
+
+flex-wrap:wrap;
+
+}
+
+.btn-secondary{
+
+background:rgba(255,255,255,.15);
+
+color:white;
+
+backdrop-filter:blur(15px);
+
+border:1px solid rgba(255,255,255,.25);
+
+}
+
+.btn-secondary:hover{
+
+transform:
+translateY(-5px);
+
+}
+
+.welcome-banner{
+
+margin-top:40px;
+
+padding:20px;
+
 border-radius:25px;
-transition:.4s;
+
+text-align:center;
+
+font-size:18px;
+
+font-weight:600;
+
 }
 
-.card:hover{
-transform:translateY(-10px);
-}
-
-.card h3{
-margin-bottom:10px;
-color:#06b6d4;
-}
-  </style>
-</head>
-
-<body>
+</style>
 
 <!-- Overlay -->
 
@@ -242,46 +684,70 @@ color:#06b6d4;
 
 <div class="sidebar" id="sidebar">
 
-<h2>📱 Quick Links</h2>
+<h2>Student Help</h2>
 
-<a href="https://wa.me/916393859364" target="_blank">
-💬 WhatsApp Contact
+<a href="scholarship.html">
+🎓 Scholarship Forms
 </a>
 
-<a href="https://t.me/Student_help_service_00" target="_blank">
+<a href="exam.html">
+📝 Exam Forms
+</a>
+
+<a href="government-jobs.html">
+🏆 Government Jobs
+</a>
+
+<a href="aadhaar.html">
+🪪 Aadhaar Services
+</a>
+
+<a href="pan.html">
+💳 PAN Services
+</a>
+
+<a href="ayushman.html">
+🏥 Ayushman Card
+</a>
+
+<a href="lic-insurance.html">
+🛡️ LIC & Insurance
+</a>
+
+<a href="books-pyqs.html">
+📚 Books & PYQs
+</a>
+
+<a href="https://t.me/Student_help_service_00">
 📨 Telegram Contact
 </a>
 
-<a href="https://whatsapp.com/channel/0029VbCiLnC2f3EM06L4Lu45" target="_blank">
-📢 WhatsApp Channel
-</a>
-
-<a href="https://t.me/+h5uD1cqoh1wzNThl" target="_blank">
-🚀 Telegram Channel
-</a>
-
-<a href="https://www.instagram.com/student_help_service.00" target="_blank">
-📸 Instagram
+<a href="https://wa.me/916393859364">
+💬 WhatsApp Contact
 </a>
 
 </div>
 
-<!-- Header -->
+<!-- Navbar -->
 
 <header>
 
 <div class="container navbar">
 
-<div class="menu-btn" onclick="openMenu()">
-☰
-</div>
-
 <div class="logo">
 Student Help Services
 </div>
 
-<div class="dark-toggle">
+<div class="nav-actions">
+
+<button class="theme-btn" onclick="toggleTheme()">
 🌙
+</button>
+
+<button class="menu-btn" onclick="openMenu()">
+☰
+</button>
+
 </div>
 
 </div>
@@ -301,48 +767,29 @@ Student Help Services
 </h1>
 
 <p>
-India's Trusted Online Platform for Scholarship Forms,
-Government Job Forms, Aadhaar Services, PAN Services,
-Ayushman Card, Insurance Assistance, Resume Making,
-PDF Services, Document Typing and many more Digital Services.
+
+Scholarship Forms, Government Job Forms,
+Aadhaar Services, PAN Services,
+Ayushman Card, Insurance Services,
+Books, PYQs, Resume Making,
+Document Typing and Digital Assistance
+at one place.
+
 </p>
 
-<a href="https://t.me/+h5uD1cqoh1wzNThl"
-class="btn"
-target="_blank">
+<div class="hero-buttons">
 
-🚀 Join Telegram Channel
+<a href="https://t.me/+h5uD1cqoh1wzNThl"
+class="btn btn-primary">
+
+🚀 Join Telegram
 
 </a>
-
-<div style="
-margin-top:30px;
-display:flex;
-gap:15px;
-justify-content:center;
-flex-wrap:wrap;">
 
 <a href="https://wa.me/916393859364"
-target="_blank"
-style="
-background:#25D366;
-padding:14px 24px;
-border-radius:50px;
-font-weight:700;">
+class="btn btn-secondary">
 
-💬 WhatsApp
-
-</a>
-
-<a href="https://t.me/Student_help_service_00"
-target="_blank"
-style="
-background:#0088cc;
-padding:14px 24px;
-border-radius:50px;
-font-weight:700;">
-
-📨 Telegram
+💬 Contact Now
 
 </a>
 
@@ -350,34 +797,17 @@ font-weight:700;">
 
 </div>
 
-</div>
+<div class="welcome-banner glass">
 
-</section>
-
-<!-- Welcome Banner -->
-
-<section>
-
-<div class="container">
-
-<div style="
-padding:25px;
-text-align:center;
-font-size:18px;
-font-weight:600;
-border-radius:20px;
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.08);">
-
-🇮🇳 Trusted Digital Services For Students & Citizens Across India
+🇮🇳 Trusted Online Services For Students Across India
 
 </div>
 
 </div>
 
 </section>
-
-<!-- Services Section -->
+    
+    <!-- Services Section -->
 
 <section class="section">
 
@@ -387,150 +817,95 @@ border:1px solid rgba(255,255,255,.08);">
 Our Services
 </h2>
 
-<div class="grid">
-  <a href="scholarship.html">
+<p class="section-sub">
+Fast, Secure and Trusted Digital Services for Students and Citizens Across India.
+</p>
 
-<div class="card">
+<div class="grid">
+
+<div class="card glass">
 <h3>🎓 Scholarship Forms</h3>
 <p>
-National, State and Private Scholarship Applications,
-Document Verification and Form Assistance.
+National Scholarship, State Scholarship, UP Scholarship and Private Scholarship Form Assistance.
 </p>
 </div>
 
-</a>
-
-<a href="exam.html">
-
-<div class="card">
+<div class="card glass">
 <h3>📝 Exam Forms</h3>
 <p>
-JEE, NEET, CUET, SSC, Banking, Railway,
-Police and Various Competitive Exam Forms.
+JEE, NEET, CUET, SSC, Railway, Banking and other Competitive Exam Forms.
 </p>
 </div>
 
-</a>
-
-<a href="government-jobs.html">
-
-<div class="card">
+<div class="card glass">
 <h3>🏆 Government Jobs</h3>
 <p>
-Latest SSC, UPSC, NDA, CDS, Railway,
-Banking and State Government Vacancies.
+Latest Government Vacancies, Notifications and Online Form Filling Assistance.
 </p>
 </div>
 
-</a>
-
-<a href="aadhaar.html">
-
-<div class="card">
+<div class="card glass">
 <h3>🪪 Aadhaar Services</h3>
 <p>
-Mobile Linking, Address Update,
-Correction and Aadhaar Related Assistance.
+Address Update, Mobile Linking, Name Correction and Aadhaar Related Services.
 </p>
 </div>
 
-</a>
-
-<a href="pan.html">
-
-<div class="card">
+<div class="card glass">
 <h3>💳 PAN Services</h3>
 <p>
-New PAN Application, Correction,
-PAN Reprint and e-PAN Services.
+New PAN Card, PAN Correction, Reprint and e-PAN Services.
 </p>
 </div>
 
-</a>
-
-<a href="ayushman.html">
-
-<div class="card">
+<div class="card glass">
 <h3>🏥 Ayushman Card</h3>
 <p>
-Eligibility Check, Registration,
-Document Verification and Assistance.
+Eligibility Check, Registration and Ayushman Bharat Card Assistance.
 </p>
 </div>
 
-</a>
-
-<a href="lic-insurance.html">
-
-<div class="card">
+<div class="card glass">
 <h3>🛡️ LIC & Insurance</h3>
 <p>
-LIC, Health Insurance, Life Insurance
-and Policy Related Guidance.
+Life Insurance, Health Insurance and LIC Related Guidance.
 </p>
 </div>
 
-</a>
-
-<a href="books-pyqs.html">
-
-<div class="card">
+<div class="card glass">
 <h3>📚 Books & PYQs</h3>
 <p>
-Class Notes, Books,
-Previous Year Question Papers and Study Material.
+Free Notes, Books, Previous Year Papers and Study Material.
 </p>
 </div>
 
-</a>
-
-<a href="#">
-
-<div class="card">
+<div class="card glass">
 <h3>📄 Resume Making</h3>
 <p>
-Professional Resume, CV Design,
-Job Resume and Student Resume Services.
+Professional Resume, CV Design and Job Application Documents.
 </p>
 </div>
 
-</a>
-
-<a href="#">
-
-<div class="card">
+<div class="card glass">
 <h3>📑 PDF Services</h3>
 <p>
-PDF Creation, Merge, Split,
-Compression and Editing Services.
+PDF Creation, Merge, Split, Conversion and Editing Services.
 </p>
 </div>
 
-</a>
-
-<a href="#">
-
-<div class="card">
+<div class="card glass">
 <h3>⌨️ Document Typing</h3>
 <p>
-Hindi & English Typing,
-Application Writing and Formatting.
+Hindi and English Typing, Applications and Official Documents.
 </p>
 </div>
 
-</a>
-
-<a href="#">
-
-<div class="card">
+<div class="card glass">
 <h3>🎫 Ticket Booking</h3>
 <p>
-Train Ticket, Flight Ticket,
-Bus Ticket and Travel Assistance.
+Train, Bus and Flight Ticket Booking Assistance.
 </p>
 </div>
-
-</a>
 
 </div>
 
@@ -538,48 +913,45 @@ Bus Ticket and Travel Assistance.
 
 </section>
 
-<!-- About Section -->
+<!-- Statistics Section -->
 
 <section class="section">
 
 <div class="container">
 
 <h2 class="section-title">
-About Us
+Our Achievements
 </h2>
 
-<div class="card">
+<div class="grid">
 
-<p style="
-line-height:2;
-font-size:16px;">
+<div class="card glass" style="text-align:center;">
+<h1 style="font-size:55px;">500+</h1>
+<p>Students Assisted</p>
+</div>
 
-Student Help Services is a trusted online platform
-providing digital assistance for students and citizens
-across India.
+<div class="card glass" style="text-align:center;">
+<h1 style="font-size:55px;">50+</h1>
+<p>Digital Services</p>
+</div>
 
-We help with Scholarship Forms,
-Government Job Applications,
-Exam Registrations,
-Aadhaar Services,
-PAN Services,
-Ayushman Card,
-Insurance Assistance,
-Resume Creation,
-PDF Work,
-Document Typing and many other online services.
+<div class="card glass" style="text-align:center;">
+<h1 style="font-size:55px;">24×7</h1>
+<p>Support Available</p>
+</div>
 
-Our mission is to make online work easy,
-fast and reliable for everyone.
-
-</p>
+<div class="card glass" style="text-align:center;">
+<h1 style="font-size:55px;">100%</h1>
+<p>Online Process</p>
+</div>
 
 </div>
 
 </div>
 
 </section>
-  <!-- Why Choose Us -->
+
+<!-- Why Choose Us -->
 
 <section class="section">
 
@@ -589,26 +961,100 @@ fast and reliable for everyone.
 Why Choose Us
 </h2>
 
+<p class="section-sub">
+Professional, Fast and Reliable Assistance For Every Online Service.
+</p>
+
 <div class="grid">
 
-<div class="card">
-<h2>100%</h2>
-<p>Online Support</p>
+<div class="card glass">
+<h3>⚡ Fast Service</h3>
+<p>
+Quick processing and timely completion of forms and digital work.
+</p>
 </div>
 
-<div class="card">
-<h2>24×7</h2>
-<p>Telegram Assistance</p>
+<div class="card glass">
+<h3>🔒 Secure Process</h3>
+<p>
+Your documents and information are handled with care and privacy.
+</p>
 </div>
 
-<div class="card">
-<h2>50+</h2>
-<p>Digital Services</p>
+<div class="card glass">
+<h3>💬 24×7 Support</h3>
+<p>
+Get assistance through Telegram and WhatsApp whenever required.
+</p>
 </div>
 
-<div class="card">
-<h2>Fast</h2>
-<p>Service Delivery</p>
+<div class="card glass">
+<h3>🌐 Fully Online</h3>
+<p>
+No need to visit offices. Most services can be completed online.
+</p>
+</div>
+
+<div class="card glass">
+<h3>📋 Expert Guidance</h3>
+<p>
+Help with eligibility, documents and application procedures.
+</p>
+</div>
+
+<div class="card glass">
+<h3>🎯 Student Focused</h3>
+<p>
+Special support for scholarships, exams and educational services.
+</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+    <!-- Testimonials -->
+
+<section class="section">
+
+<div class="container">
+
+<h2 class="section-title">
+Student Reviews
+</h2>
+
+<p class="section-sub">
+What Students and Users Say About Our Services
+</p>
+
+<div class="grid">
+
+<div class="card glass">
+<h3>⭐⭐⭐⭐⭐</h3>
+<p>
+Very fast scholarship form filling service.
+Everything was completed smoothly.
+</p>
+<b>- Student</b>
+</div>
+
+<div class="card glass">
+<h3>⭐⭐⭐⭐⭐</h3>
+<p>
+Government job form was filled correctly and on time.
+Highly recommended.
+</p>
+<b>- Aspirant</b>
+</div>
+
+<div class="card glass">
+<h3>⭐⭐⭐⭐⭐</h3>
+<p>
+Very helpful support on Telegram and WhatsApp.
+Quick response and guidance.
+</p>
+<b>- User</b>
 </div>
 
 </div>
@@ -617,7 +1063,7 @@ Why Choose Us
 
 </section>
 
-<!-- Contact Section -->
+<!-- Contact -->
 
 <section class="section">
 
@@ -627,7 +1073,7 @@ Why Choose Us
 Contact Us
 </h2>
 
-<div class="card" style="text-align:center;">
+<div class="card glass" style="text-align:center;max-width:700px;margin:auto;">
 
 <h3>📞 Mobile Number</h3>
 
@@ -637,7 +1083,7 @@ Contact Us
 
 <br>
 
-<h3>📨 Telegram Username</h3>
+<h3>📨 Telegram</h3>
 
 <p style="margin-top:10px;">
 @Student_help_service_00
@@ -646,10 +1092,9 @@ Contact Us
 <br>
 
 <a href="https://wa.me/916393859364"
-class="btn"
-target="_blank">
+class="btn btn-primary">
 
-Message Now
+💬 Contact on WhatsApp
 
 </a>
 
@@ -662,16 +1107,24 @@ Message Now
 <!-- Footer -->
 
 <footer style="
-padding:60px 20px;
-text-align:center;
-background:#050814;
+padding:70px 20px;
+margin-top:50px;
+background:#020617;
 border-top:1px solid rgba(255,255,255,.08);
 ">
 
+<div class="container">
+
+<div style="text-align:center;">
+
 <h2 style="
-font-size:30px;
-font-weight:800;
-background:linear-gradient(90deg,#6366f1,#06b6d4);
+font-size:35px;
+font-weight:900;
+background:linear-gradient(
+90deg,
+#6366f1,
+#06b6d4
+);
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
 ">
@@ -681,51 +1134,108 @@ Student Help Services
 </h2>
 
 <p style="
-margin-top:15px;
-line-height:2;
+margin-top:20px;
 color:#cbd5e1;
+line-height:2;
 ">
 
-Scholarships • Government Jobs • Aadhaar • PAN •
+Scholarship Forms • Government Jobs • Aadhaar • PAN •
 Ayushman Card • Insurance • Resume • PDF Work
 
 </p>
 
 <p style="
-margin-top:25px;
+margin-top:20px;
 color:#94a3b8;
 ">
 
-© 2026 Student Help Services | All Rights Reserved
+© 2026 Student Help Services
+All Rights Reserved
 
 </p>
 
 <p style="
-margin-top:10px;
+margin-top:12px;
 color:#64748b;
 ">
 
-💻 Website Developed By <b>Ritesh Shukla</b>
+💻 Developed By <b>Ritesh Shukla</b>
 
 </p>
 
+</div>
+
+</div>
+
 </footer>
 
-<!-- Floating WhatsApp -->
+<!-- Floating Buttons -->
+
+<style>
+
+.float-btn{
+
+position:fixed;
+
+width:65px;
+height:65px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:30px;
+
+color:white;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.3);
+
+z-index:999;
+
+transition:.3s;
+
+}
+
+.float-btn:hover{
+
+transform:
+translateY(-5px)
+scale(1.08);
+
+}
+
+.whatsapp{
+
+right:20px;
+bottom:95px;
+
+background:#25D366;
+
+}
+
+.telegram{
+
+right:20px;
+bottom:20px;
+
+background:#0088cc;
+
+}
+
+</style>
 
 <a href="https://wa.me/916393859364"
-class="floating whatsapp-float"
-target="_blank">
+class="float-btn whatsapp">
 
 💬
 
 </a>
 
-<!-- Floating Telegram -->
-
 <a href="https://t.me/Student_help_service_00"
-class="floating telegram-float"
-target="_blank">
+class="float-btn telegram">
 
 📨
 
@@ -735,22 +1245,90 @@ target="_blank">
 
 <script>
 
+function toggleTheme(){
+
+document.body.classList.toggle("dark");
+
+localStorage.setItem(
+"theme",
+document.body.classList.contains("dark")
+? "dark"
+: "light"
+);
+
+}
+
+if(
+localStorage.getItem("theme")
+==="light"
+){
+
+document.body.classList.remove("dark");
+
+}
+
 function openMenu(){
 
-document.getElementById("sidebar").classList.add("active");
-document.getElementById("overlay").style.display="block";
+document.getElementById(
+"sidebar"
+).classList.add("active");
+
+document.getElementById(
+"overlay"
+).style.display="block";
 
 }
 
-document.getElementById("overlay").onclick=function(){
+document.getElementById(
+"overlay"
+).onclick=function(){
 
-document.getElementById("sidebar").classList.remove("active");
-document.getElementById("overlay").style.display="none";
+document.getElementById(
+"sidebar"
+).classList.remove("active");
+
+document.getElementById(
+"overlay"
+).style.display="none";
+
+};
+
+window.addEventListener(
+"scroll",
+function(){
+
+const cards=
+document.querySelectorAll(".card");
+
+cards.forEach(card=>{
+
+const top=
+card.getBoundingClientRect().top;
+
+if(top<window.innerHeight-100){
+
+card.style.opacity="1";
+card.style.transform="translateY(0)";
 
 }
+
+});
+
+});
+
+document.querySelectorAll(".card")
+.forEach(card=>{
+
+card.style.opacity="0";
+card.style.transform=
+"translateY(40px)";
+card.style.transition=
+".7s";
+
+});
 
 </script>
 
 </body>
 </html>
-  
+    
